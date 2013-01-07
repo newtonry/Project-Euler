@@ -1,26 +1,61 @@
 import math
 
+total = 0
+totalTwo = 0
+totalThree = 0
+
+for x in range(0,2000000,3):
+        totalThree += x
+
+
+for x in range(0,2000000,2):
+        totalTwo += x
+
+
+for x in range(20000001):
+        total += x
+
+print totalThree
+print totalTwo
+print total
+
+print total-totalTwo
+
+
+###problem 20
+##totalStr = str(math.factorial(100))
+##
+##ans = 0
+##
+##for number in totalStr:
+##    ans += int(number)
+##        
+##print ans
+
+
+
+
 
 
 #problem  19
 
 
-month = {1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
-dayCounter = 2 #starting with Tuesday Jan 1 1901
-
-sunFirstCount = 0
-
-for year in range(1,101):    
-    for mon in range (1,13):
-        if dayCounter%7 == 0:
-            sunFirstCount += 1
-            
-        dayCounter += month[mon]
-        if year%4 == 0 and mon == 2:
-            dayCounter +=1
-
-            
-print sunFirstCount
+##month = {1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
+##dayCounter = 2 #starting with Tuesday Jan 1 1901
+##
+##sunFirstCount = 0
+##
+##for year in range(1,101):    
+##    for mon in range (1,13):
+##        if dayCounter%7 == 0:
+##            sunFirstCount += 1
+##            
+##        dayCounter += month[mon]
+##        if year%4 == 0 and mon == 2:
+##            dayCounter +=1
+##
+##            
+##print sunFirstCount
 
 
 
