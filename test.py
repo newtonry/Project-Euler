@@ -1,25 +1,109 @@
 import math
 
-total = 0
-totalTwo = 0
-totalThree = 0
 
-for x in range(0,2000000,3):
-        totalThree += x
+names = ['SAM','BOB','KATHERINES', 'KATHY']
+names.sort()
 
-
-for x in range(0,2000000,2):
-        totalTwo += x
+print names
 
 
-for x in range(20000001):
-        total += x
 
-print totalThree
-print totalTwo
-print total
+##
+###problem 22
+###haha, after completing this, I just read there's a .sort() method >_<.  Mine definitely wasn't the most efficient sort anyways
+##
+##f = open('names.txt')
+##names = f.read()
+##f.close()
+##
+##arrangedNames = ['ZZZZZZZZ']
+##
+##names = names.replace('"', '').split(",")
+##letterVal = {"A":0, "B":1, "C":2, "D":3, "E":4, "F":5, "G":6, "H":7, "I":8, "J":9, "K":10, "L":11, "M":12, "N":13, "O":14, "P":15, "Q":16, "R":17, "S":18, "T":19, "U":20, "V":21, "W":22, "X":23, "Y":24, "Z":25}
+##
+##
+###names = ['SAM','BOB','KATHERINES', 'KATHY']
+##
+##
+##for name in names:
+##        letPos = 0
+##        namePos = 0
+##        isSorted = True
+##     #   print name
+##        while isSorted:
+##                if letterVal[name[letPos]] < letterVal[arrangedNames[namePos][letPos]]:
+##                        arrangedNames.insert(namePos, name)
+##                        isSorted = False
+##                        
+##                elif letterVal[name[letPos]] > letterVal[arrangedNames[namePos][letPos]]:
+##                        namePos += 1
+##                        letPos = 0
+##
+##                else:
+##                        letPos +=1
+##                        if letPos == len(arrangedNames[namePos]):
+##                                namePos +=1
+##                                letPos = 0
+##                        elif letPos == len(name):
+##                                arrangedNames.insert(namePos, name)
+##                                isSorted = False
+##        
+##
+##total = 0
+##
+##for x in range(len(arrangedNames) - 1):
+##        letterTotal = 0
+##        for letter in arrangedNames[x]:
+##                letterTotal += letterVal[letter] + 1
+##
+##        total += (letterTotal * (x+1))
+##
+##print total
 
-print total-totalTwo
+
+##test = 0
+##
+##for letter in arrangedNames[937]:
+##        test += letterVal[letter] + 1
+##
+##print test * 938
+
+
+
+
+#print arrangedNames
+
+
+
+##alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".replace(' ', '').upper()
+##
+##string = ''
+##for x in range (26):
+##        string += ', "' + alphabet[x] + '":'+ str(x) 
+##
+##print string
+
+##
+##total = 0
+##totalTwo = 0
+##totalThree = 0
+##
+##for x in range(0,2000000,3):
+##        totalThree += x
+##
+##
+##for x in range(0,2000000,2):
+##        totalTwo += x
+##
+##
+##for x in range(20000001):
+##        total += x
+##
+##print totalThree
+##print totalTwo
+##print total
+##
+##print total-totalTwo
 
 
 ###problem 20
