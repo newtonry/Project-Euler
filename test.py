@@ -1,10 +1,132 @@
 import math
 
 
-names = ['SAM','BOB','KATHERINES', 'KATHY']
-names.sort()
+#problem 12? incomplete
+def getPrimesTo(x):
+    numlist = range(3, x+1, 2)
+    counter = 0
+    backup = 0
+    for num in numlist:
+        counter = backup
+        if num != 0:
+            counter += num
+            while counter <= len(numlist)-1:
+                    numlist[counter] = 0
+                    counter += num
 
-print names
+        backup += 1
+    return [2] + [x for x in numlist if x]
+
+
+
+def getDivs(number):
+    divList = [1]
+    primes = getPrimesTo(number/2 + 1)
+    
+    for prime in primes:
+        if number%prime == 0:
+            div = number/prime
+            if prime not in divList:
+                divList.append(prime)
+            if div not in divList:
+                divList.append(number/prime)
+            if div not in primes:
+                factors = getDivs(div)
+                for factor in factors:
+                    if factor not in divList:
+                        divList.append(factor)
+                    
+    divList.append(number)
+    return divList
+
+print len(getDivs(20000000))
+
+
+#ans = getDivs(100)
+#ans.sort()
+#print ans
+#print len(getDivs(100))
+
+
+#def removeDuplicates(numbers):
+#    for number in number 
+
+
+def getFiveHundred(currentNum, nextIncrement):
+    currentNum += nextIncrement
+
+    if len(getDivs(currentNumber)) > 500:
+        print currentNum
+    else:
+        getFiveHundred(currentNum, nextIncrement + 1)
+
+
+#print unique(2,3,4)
+
+#getDivCount(20)
+
+
+##
+###problem 10
+##
+###other way to get primes; works by removing all multiples of primes
+###so no comparisons vs them are needed, saving a lot of time
+###removes all multiples of whatever counter is by turning them into 0's
+##
+##def getPrimesToX(x):
+##    numlist = range(3, x+1, 2)
+##    counter = 0
+##    backup = 0
+##    for num in numlist:
+##        counter = backup
+##        if num != 0:
+##            counter += num
+##            while counter <= len(numlist)-1:
+##                    numlist[counter] = 0
+##                    counter += num
+##
+##        backup += 1
+##    return [2] + [x for x in numlist if x]
+##
+##
+##
+##
+##
+##
+##
+##
+##
+
+
+##def getPrimesUpTo(limit):
+##    x=5
+##    primes = [2,3]
+##    while x <= limit:
+##        
+##        isPrime = True        
+##
+##        for prime in primes:
+##            if x%prime == 0:
+##                 isPrime = False
+##                 break
+##    
+##        if isPrime is True:
+##            primes.append(x)
+##        x += 2
+##
+##    return primes
+##
+##
+##print sum(getPrimesUpTo(2000000))
+
+
+
+
+
+##names = ['SAM','BOB','KATHERINES', 'KATHY']
+##names.sort()
+##
+##print names
 
 
 
