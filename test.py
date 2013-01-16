@@ -1,7 +1,84 @@
 import math
+import time
 
 
-#problem 12? incomplete
+#problem 26
+##The way I viewed the problem was based on how 'long division' is performed.
+##I kept storing the remainders, and as a pattern of remainders had occurred twice,
+##you would know that it's stuck in a loop of that pattern.
+
+def getPattern(x):
+    rem = 10%7
+    for times in range(10): #gets rid of non pattern starts
+        rem = (rem * 10)%x
+
+    patternList = str(rem)
+
+    while True:
+        rem = (rem * 10)%x
+        patternList += str(rem)
+
+        lenList = len(patternList)
+
+        
+
+        if patternList[:(lenList/2)] == patternList[lenList/2:]:
+            return patternList[:(lenList/2)]
+            break
+ #       print patternList
+
+  #      print 'patternlist1 ' + str(patternList[:(lenList/2)])
+  #      print 'patternlist2 '+ str(patternList[lenList/2:])
+
+
+longestPatNum = 0
+longestPat = 0
+
+for number in range(1,1000):
+    length = len(getPattern(number))
+
+    if length > longestPat:
+        longestPatNum = number
+        longestPat = length
+
+
+print longestPatNum
+print longestPat
+
+
+
+#print 1.6180339887**12 /math.sqrt(5)
+
+
+#problem 25 using fibonacci formula
+#count = 1
+#while len(str(int(1.6180339887**count /math.sqrt(5)))) < 1000:
+#     count +=1
+
+
+
+#print len(1.6180339887**472 /math.sqrt(5))
+
+###problem 25
+##val1 = 1
+##val2 = 1
+##
+##termN = 2
+##
+##while len(str(val2)) < 1000:
+##    temp = val1 + val2
+##    val1 = val2
+##    val2 = temp
+##
+##    termN +=1
+##
+##print termN
+
+
+##start = time.time()
+##
+##
+###problem 12? incomplete
 def getPrimesTo(x):
     numlist = range(3, x+1, 2)
     counter = 0
@@ -17,49 +94,73 @@ def getPrimesTo(x):
         backup += 1
     return [2] + [x for x in numlist if x]
 
+#primes = getPrimesTo(1000)
+
+#print primes
+
+#print format(1.0/3.0, '.100f')
 
 
-def getDivs(number):
-    divList = [1]
-    primes = getPrimesTo(number/2 + 1)
-    
-    for prime in primes:
-        if number%prime == 0:
-            div = number/prime
-            if prime not in divList:
-                divList.append(prime)
-            if div not in divList:
-                divList.append(number/prime)
-            if div not in primes:
-                factors = getDivs(div)
-                for factor in factors:
-                    if factor not in divList:
-                        divList.append(factor)
-                    
-    divList.append(number)
-    return divList
-
-print len(getDivs(20000000))
-
-
-#ans = getDivs(100)
-#ans.sort()
-#print ans
-#print len(getDivs(100))
-
-
-#def removeDuplicates(numbers):
-#    for number in number 
-
-
-def getFiveHundred(currentNum, nextIncrement):
-    currentNum += nextIncrement
-
-    if len(getDivs(currentNumber)) > 500:
-        print currentNum
-    else:
-        getFiveHundred(currentNum, nextIncrement + 1)
-
+##
+##def getDivs(number):
+##                    
+##    divList = range (int(math.sqrt(number)))
+##    if 
+##
+##
+##getDivs(10000)
+##
+##
+##
+##
+##end = time.time()
+##print "Time:", end - start
+##
+####
+####def getDivs(number):
+####    divList = [1]
+####    primes = getPrimesTo(int(math.sqrt(number)) + 1)
+####    
+####    for prime in primes:
+####        if number%prime == 0:
+####            div = number/prime
+####            if prime not in divList:
+####                divList.append(prime)
+####        #    if div not in divList:
+####      #         divList.append(number/prime)
+####            if div not in primes and div not in divList:
+####                factors = getDivs(div)
+####                for factor in factors:
+####                    if factor not in divList:
+####                        divList.append(factor)
+####                    
+####    divList.append(number)
+####    return divList
+##
+###print len(getDivs(40000000000))
+##
+###ans = getDivs(100)
+###ans.sort()
+###print ans
+###print len(getDivs(100))
+##
+##
+###def removeDuplicates(numbers):
+###    for number in number 
+##
+##
+##def getFiveHundred(currentNum, nextIncrement):
+##    currentNum += nextIncrement
+##
+##    numDivs =len(getDivs(currentNum))
+##    print str(currentNum) + ' has #divs ' + str(numDivs)
+##
+##    if  numDivs > 50:
+##        print currentNum
+##    else:
+##        getFiveHundred(currentNum, nextIncrement + 1)
+##
+#getFiveHundred(1,2)
 
 #print unique(2,3,4)
 
