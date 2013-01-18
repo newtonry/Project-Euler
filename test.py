@@ -2,49 +2,188 @@ import math
 import time
 
 
-#problem 26
-##The way I viewed the problem was based on how 'long division' is performed.
-##I kept storing the remainders, and as a pattern of remainders had occurred twice,
-##you would know that it's stuck in a loop of that pattern.
+#working on 35
+def getPrimesTo(x):
+    numlist = range(3, x+1, 2)
+    counter = 0
+    backup = 0
+    for num in numlist:
+        counter = backup
+        if num != 0:
+            counter += num
+            while counter <= len(numlist)-1:
+                    numlist[counter] = 0
+                    counter += num
 
-def getPattern(x):
-    rem = 10%7
-    for times in range(10): #gets rid of non pattern starts
-        rem = (rem * 10)%x
+        backup += 1
+    return [2] + [x for x in numlist if x]
 
-    patternList = str(rem)
 
-    while True:
-        rem = (rem * 10)%x
-        patternList += str(rem)
 
-        lenList = len(patternList)
+primes = getPrimesTo(1000000)
 
+
+primesSubList = [[],[],[],[],[],[],[],]
+primesSubList[1] = [] #for primes with 1 digits
+primesSubList[2] = [] #for primes with 2 digits
+primesSubList[3] = []
+primesSubList[4] = []
+primesSubList[5] = []
+primesSubList[6] = [] #for primes with 6 digits
+
+for prime in primes:
+    numDigits = len(str(prime))
+    primesSubList[numDigits].append(prime)
+
+
+
+ansList = []
+
+for numDigits in range(1, 7):
+
+    for x in range(len(primesSubList[numDigits])):
+        arr = []
+        for number in str(primesSubList[numDigits][x]):
+            arr.append(number)
+
+        arr.sort()
+        primesSubList[numDigits][x] = arr
+
+    for prime in primesSubList[numDigits]:
+
+        if len(prime) == 1 and primesSubList[numDigits].count(prime) == 1:
+            ansList.append(prime)
+         #   print prime
+
+        elif len(prime) == 2 and primesSubList[numDigits].count(prime) > 1:
+            ansList.append(prime)
+         #   print prime
+            
+##        elif len(prime) == 3 and primesSubList[numDigits].count(prime) > 2:
+##            ansList.append(prime)
+##           # print prime
+##        elif len(prime) == 4 and primesSubList[numDigits].count(prime) > 3:
+##            ansList.append(prime)
+##        elif len(prime) == 5 and primesSubList[numDigits].count(prime) > 4:
+##            ansList.append(prime)
+##        elif len(prime) == 6 and primesSubList[numDigits].count(prime) > 5:
+            ansList.append(prime)
+
+print ansList    
+print len(ansList)    
+
+
+#print primesSubList[2]
         
 
-        if patternList[:(lenList/2)] == patternList[lenList/2:]:
-            return patternList[:(lenList/2)]
-            break
- #       print patternList
-
-  #      print 'patternlist1 ' + str(patternList[:(lenList/2)])
-  #      print 'patternlist2 '+ str(patternList[lenList/2:])
-
-
-longestPatNum = 0
-longestPat = 0
-
-for number in range(1,1000):
-    length = len(getPattern(number))
-
-    if length > longestPat:
-        longestPatNum = number
-        longestPat = length
+##
+##test =['a','b', 'c']
+##test2 =['a','b', 'c']
+##
+##test3 = [test, test2]
+##
+##
+##print test3.count(['a','b', 'c'])
+##
+##
 
 
-print longestPatNum
-print longestPat
 
+###problem 32
+###not the most efficient answer certainly
+##productList = []
+##
+##for num1 in range(1, 1000):
+##    for num2 in range(1, 10000):
+##        stringNum = str(num1) + str(num2) + str(num1 * num2)
+##        if len(stringNum) == 9:
+##            doesWork = True
+##            for x in range(1,10):
+##                if str(x) not in stringNum:
+##                    doesWork = False
+##                    break
+##            if doesWork:
+##                #print stringNum
+##                print str(num1) + ' x ' + str(num2) + ' = ' + str(num1*num2)
+##
+##                product = num1*num2
+##                if product not in productList:
+##                    productList.append(product)
+##
+##print sum(productList)
+##
+##
+##
+##
+###problem 30
+###I just took a look at how each diagonal differs each row and came up with the following pattern:
+##
+##tot = 1
+##for x in range (3,1002, 2):
+##    ##x**2 + (x**2 - (x - 1)) + (x**2 - 2*(x-1)) + (x**2 - 3*(x-1))
+##    tot += 4*(x**2) - 6*(x-1)
+##print tot
+
+
+
+###problem 30
+##ans = 0
+##
+##for x in range(2, 1000000):
+##    sum = 0
+##    for number in str(x):
+##        sum += int(number)**5
+##
+##    if sum == x:
+##        print x
+##        ans += x
+##
+##print ans
+##
+##
+###problem 26
+####The way I viewed the problem was based on how 'long division' is performed.
+####I kept storing the remainders, and as a pattern of remainders had occurred twice,
+####you would know that it's stuck in a loop of that pattern.
+##
+##def getPattern(x):
+##    rem = 10%7
+##    for times in range(10): #gets rid of non pattern starts
+##        rem = (rem * 10)%x
+##
+##    patternList = str(rem)
+##
+##    while True:
+##        rem = (rem * 10)%x
+##        patternList += str(rem)
+##
+##        lenList = len(patternList)
+##
+##        
+##
+##        if patternList[:(lenList/2)] == patternList[lenList/2:]:
+##            return patternList[:(lenList/2)]
+##            break
+## #       print patternList
+##
+##  #      print 'patternlist1 ' + str(patternList[:(lenList/2)])
+##  #      print 'patternlist2 '+ str(patternList[lenList/2:])
+
+##
+##longestPatNum = 0
+##longestPat = 0
+##
+##for number in range(1,1000):
+##    length = len(getPattern(number))
+##
+##    if length > longestPat:
+##        longestPatNum = number
+##        longestPat = length
+##
+##
+##print longestPatNum
+##print longestPat
+##
 
 
 #print 1.6180339887**12 /math.sqrt(5)
@@ -79,20 +218,20 @@ print longestPat
 ##
 ##
 ###problem 12? incomplete
-def getPrimesTo(x):
-    numlist = range(3, x+1, 2)
-    counter = 0
-    backup = 0
-    for num in numlist:
-        counter = backup
-        if num != 0:
-            counter += num
-            while counter <= len(numlist)-1:
-                    numlist[counter] = 0
-                    counter += num
-
-        backup += 1
-    return [2] + [x for x in numlist if x]
+##def getPrimesTo(x):
+##    numlist = range(3, x+1, 2)
+##    counter = 0
+##    backup = 0
+##    for num in numlist:
+##        counter = backup
+##        if num != 0:
+##            counter += num
+##            while counter <= len(numlist)-1:
+##                    numlist[counter] = 0
+##                    counter += num
+##
+##        backup += 1
+##    return [2] + [x for x in numlist if x]
 
 #primes = getPrimesTo(1000)
 
