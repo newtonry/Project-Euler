@@ -1,8 +1,6 @@
 import math
 import time
 
-
-#working on 35
 def getPrimesTo(x):
     numlist = range(3, x+1, 2)
     counter = 0
@@ -19,44 +17,172 @@ def getPrimesTo(x):
     return [2] + [x for x in numlist if x]
 
 
-
 primes = getPrimesTo(1000000)
+print 'Got Primes'
 
 
-primesSubList = [[],[],[],[],[],[],[],]
-primesSubList[1] = [] #for primes with 1 digits
-primesSubList[2] = [] #for primes with 2 digits
-primesSubList[3] = []
-primesSubList[4] = []
-primesSubList[5] = []
-primesSubList[6] = [] #for primes with 6 digits
+divDict = {}
 
-for prime in primes:
-    numDigits = len(str(prime))
-    primesSubList[numDigits].append(prime)
+def divisorCount(number):
+    try:
+        divDict[number]
+    
+    divList = []
+    for divisor in range(2, number/2 +1):
+        if number % divisor == 0:
+            if divisor not in primes:
+                underDivList = divisorCount(divisor)
+                for each in underDivList:
+                    divList.append(divisor)
+            else:
+                divList.append(divisor)
+
+    divDict[number] = divList
+    return divList 
+
+
+print divisorCount(16)
+
+###problem 34
+##factorialDict = {}
+##
+##for x in range(0,10):
+##    factorialDict[x] = math.factorial(x)
+##
+##
+##
+##for number in range(10000000):
+##    total = 0
+##    for letter in str(number):
+##        total += factorialDict[int(letter)]
+##        if total > number:
+##            break
+##    if total == number:
+##        print number
+##
+##
+
+##
+###problem 37
+##def getPrimesTo(x):
+##    numlist = range(3, x+1, 2)
+##    counter = 0
+##    backup = 0
+##    for num in numlist:
+##        counter = backup
+##        if num != 0:
+##            counter += num
+##            while counter <= len(numlist)-1:
+##                    numlist[counter] = 0
+##                    counter += num
+##
+##        backup += 1
+##    return [2] + [x for x in numlist if x]
+##
+##
+##primes = getPrimesTo(1000000)
+##print 'Got Primes'
+##
+##def testTrunc(prime):
+##    primeStr = str(prime)
+##    isTrunc = True
+##
+##    for x in range(1, len(primeStr)):
+##        if int(primeStr[:-x]) not in primes or int(primeStr[x:]) not in primes:
+##            isTrunc = False
+##            break
+##
+##    return isTrunc
+##
+##
+##
+##ansList = []
+##
+##for prime in primes:
+##
+##    if testTrunc(prime) is True:
+##        if prime > 10:
+##            ansList.append(prime)
+##
+##print ansList
+##print sum(ansList)
+##
+##
+##
+##
 
 
 
-ansList = []
+##
+###problem 35
+##
+##def getNumbersCircle(number):
+##    numbersCircle = []
+##    nextNum = number
+##
+##    for x in range(len(str(number))):
+##        nextNum = int(str(nextNum)[-1] + str(nextNum)[:-1])
+##        numbersCircle.append(nextNum)
+##    return numbersCircle
+##
+##
+##
+##primes = getPrimesTo(1000000)
+##
+##
+##primesSubList = [[],[],[],[],[],[],[]]
+##primesSubList[1] = [] #for primes with 1 digits
+##primesSubList[2] = [] #for primes with 2 digits
+##primesSubList[3] = []
+##primesSubList[4] = []
+##primesSubList[5] = []
+##primesSubList[6] = [] #for primes with 6 digits
+##
+##
+##
+##ansList = []
+##
+##
+##for prime in primes:
+##    numDigits = len(str(prime))
+##    primesSubList[numDigits].append(prime)
+##
+##
+##for numDigits in range(1, 7):
+##    for number in primesSubList[numDigits]:
+##        numberCircle = getNumbersCircle(number)        
+##        circular = True
+##        for circle in numberCircle:
+##            if circle not in primesSubList[numDigits]:
+##                circular = False
+##                break
+##            
+##        if circular is True:
+##            ansList.append(number)
+##
+##print len(ansList)
+##
 
-for numDigits in range(1, 7):
 
-    for x in range(len(primesSubList[numDigits])):
-        arr = []
-        for number in str(primesSubList[numDigits][x]):
-            arr.append(number)
 
-        arr.sort()
-        primesSubList[numDigits][x] = arr
-
-    for prime in primesSubList[numDigits]:
-
-        if len(prime) == 1 and primesSubList[numDigits].count(prime) == 1:
-            ansList.append(prime)
-         #   print prime
-
-        elif len(prime) == 2 and primesSubList[numDigits].count(prime) > 1:
-            ansList.append(prime)
+##for numDigits in range(1, 7):
+##
+##    for x in range(len(primesSubList[numDigits])):
+##        arr = []
+##        for number in str(primesSubList[numDigits][x]):
+##            arr.append(number)
+##
+##        arr.sort()
+##        primesSubList[numDigits][x] = arr
+##
+##    for prime in primesSubList[numDigits]:
+##
+##        if len(prime) == 1 and primesSubList[numDigits].count(prime) == 1:
+##            ansList.append(prime)
+##         #   print prime
+##
+##        elif len(prime) == 2 and primesSubList[numDigits].count(prime) > 1:
+##            ansList.append(prime)
          #   print prime
             
 ##        elif len(prime) == 3 and primesSubList[numDigits].count(prime) > 2:
@@ -67,11 +193,17 @@ for numDigits in range(1, 7):
 ##        elif len(prime) == 5 and primesSubList[numDigits].count(prime) > 4:
 ##            ansList.append(prime)
 ##        elif len(prime) == 6 and primesSubList[numDigits].count(prime) > 5:
-            ansList.append(prime)
-
-print ansList    
-print len(ansList)    
-
+##            ansList.append(prime)
+##
+##print ansList    
+##print len(ansList)    
+##
+##
+##
+##
+##
+##
+##print getNumbersCircle(56789)
 
 #print primesSubList[2]
         
@@ -86,6 +218,11 @@ print len(ansList)
 ##print test3.count(['a','b', 'c'])
 ##
 ##
+
+
+
+
+
 
 
 
