@@ -17,31 +17,126 @@ def getPrimesTo(x):
     return [2] + [x for x in numlist if x]
 
 
-primes = getPrimesTo(1000000)
-print 'Got Primes'
+
+###problem 14
+###soltuion by memorizing what has already been calculated
+##hitOffNumbers = {}
+##
+##def getToOne(number):
+##
+##    count = 0
+##    while number != 1:
+##
+##        if number in hitOffNumbers:
+##            return hitOffNumbers[number] + count
+##        
+##        elif number%2 == 0:
+##            number = number/2            
+##        else:
+##            number = 3 * number + 1
+##    
+##        count += 1 
+##
+##    return count
+##
+##
+##
+##highCount = 0
+##highNum = 0
+##
+##
+##
+##
+##for number in range(1,1000000):
+##
+##
+##    count = getToOne(number)
+##    hitOffNumbers[number] = count
+##
+##    if count > highCount:
+##        highCount = count
+##        highNum = number
+##
+##print highCount
+##print highNum
+##
 
 
-divDict = {}
-
-def divisorCount(number):
-    try:
-        divDict[number]
-    
-    divList = []
-    for divisor in range(2, number/2 +1):
-        if number % divisor == 0:
-            if divisor not in primes:
-                underDivList = divisorCount(divisor)
-                for each in underDivList:
-                    divList.append(divisor)
-            else:
-                divList.append(divisor)
-
-    divDict[number] = divList
-    return divList 
 
 
-print divisorCount(16)
+###primes = getPrimesTo(1000000)
+###print 'Got Primes'
+##
+### well this is another solution to 12, which works a lot better, due to the line
+###return (sr*sr == n) + 2*sum(n%i == 0 for i in xrange(1,sr))
+##
+##
+##def triangles():
+##    term, sum = 1, 0
+##    while True:
+##        term, sum = term+1, sum+term
+##        yield sum
+##
+##def ndivisors(n):
+##    from math import sqrt
+##    sr = int(sqrt(n))
+##    return (sr*sr == n) + 2*sum(n%i == 0 for i in xrange(1,sr))
+##
+##
+##for t in triangles():
+##    if ndivisors(t) > 50:
+##        break
+##    
+##print ndivisors(t), t
+##
+##
+##
+##x = 2
+##print sum( z%2 == 0 for z in range(1, 11))
+##
+
+###problem 12
+##divDict = {}
+##
+##def divisorCount(number):
+##
+##    if number in divDict:
+##        return divDict[number]
+##    
+##    divList = []
+##    for divisor in range(2, number/2 +1):
+##        if number % divisor == 0:
+##            if divisor not in primes:
+##                underDivList = divisorCount(divisor)
+##                for each in underDivList:
+##                    divList.append(divisor)
+##            else:
+##                divList.append(divisor)
+##
+##    divList.append(1)
+##    divList.append(number)
+##    divList = sorted(set(divList))
+##
+##    divDict[number] = divList
+##    return divList
+##
+##
+##currentNum = 1
+##increment = 2
+##found = False
+##while found is False:
+##    currentNum += increment
+##    increment += 1
+##
+##    divCount = divisorCount(currentNum)
+##    if len(divCount) > 500:
+##        print currentNum
+##        found = True
+##
+##
+##
+
+
 
 ###problem 34
 ##factorialDict = {}
