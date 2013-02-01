@@ -17,6 +17,294 @@ def getPrimesTo(x):
     return [2] + [x for x in numlist if x]
 
 
+###problem 52
+##going = True
+##x = 10
+##
+##while going:
+##    x += 1
+##    if len(str(x)) != len(str(x*6)):
+##        x = int('1' + len(str(x))*'0')
+##        
+##    xSorted = "".join(sorted(str(x)))
+##
+##    #I'm sure there's a pretty way to write the line, or do it in a loop, but this got the answer
+##    if "".join(sorted(str(x*2))) == xSorted and "".join(sorted(str(x*3))) == xSorted and "".join(sorted(str(x*3))) == xSorted and "".join(sorted(str(x*4))) == xSorted and  "".join(sorted(str(x*5))) == xSorted and "".join(sorted(str(x*6))):
+##        going = False    
+##print x
+
+
+
+
+##def getPentsTo(x):
+##    pents = [1]
+##    n = 1
+##    while pents[-1] < x:
+##        n +=1
+##
+##        for pent in pents:
+##            if (n*(3*n - 1)/2 - pent) in pents and (n*(3*n - 1)/2 + pent) in pents:
+##                print n*(3*n - 1)/2 - pent
+##                return n*(3*n - 1)/2 - pent
+##        pents.append(n*(3*n - 1)/2)
+##        
+##    return pents
+
+
+###problem 45
+##triNums = []
+##pentNums = []
+##hexNums = []
+##
+##for x in range (1,100000):
+##    triNums.append(x*(x+1)/2)
+##
+##
+##maxVal = triNums[-1]
+##
+##
+##
+##
+##
+##
+##for x in range(1,100000):
+##    if x*(3*x - 1)/2 < maxVal:
+##        pentNums.append(x*(3*x - 1)/2)
+##    if x*(2*x-1) < maxVal:
+##        hexNums.append(x*(2*x-1))
+##        
+###apparently this set() is useful
+##print(set(triNums) & set(pentNums) & set(hexNums))
+##
+##
+#####brute force way
+####for number in triNums:
+####    if number in pentNums and number in hexNums:
+####        print number
+
+
+
+###problem 67
+###same solution as 18 pretty much
+##
+##f = open('triangle.txt')
+##lines = f.readlines()
+##f.close()
+##
+###definitely a better way to grab the content, but this worked
+##content = []
+##for line in lines:
+##    line = line.replace('\n', '').split(" ")
+##    content.append(line)
+##    for number in line:
+##        number = int(number)
+##for line in content:
+##    for x in range(len(line)):
+##        line[x] = int(line[x])
+##
+##print 'Got the content arranged'
+##
+##
+###ugly to read, but w/e
+##for lineNum in range(1,len(content)):
+##    for numPos in range(len(content[lineNum])):    
+##        #compare content[lineNum -1][numPos] and content[lineNum-1][numPos + 1]
+##
+##       # print content[lineNum][numPos]
+##        if numPos == 0: #for left edge numbers
+##            content[lineNum][numPos] += content[lineNum -1][numPos]
+##
+##        elif numPos == len(content[lineNum]) - 1: # for right edge
+##            content[lineNum][numPos] += content[lineNum-1][numPos - 1]
+##
+##        elif content[lineNum -1][numPos-1] > content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum -1][numPos-1]
+##
+##        elif content[lineNum -1][numPos-1] < content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum-1][numPos]
+##
+##        elif content[lineNum -1][numPos-1] == content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum-1][numPos]
+##
+##
+##print max(content[lineNum])
+
+
+
+
+
+
+
+###problem 18
+##
+##f = open('prob18.txt')
+##lines = f.readlines()
+##f.close()
+##
+###definitely a better way to grab the content, but this worked
+##content = []
+##for line in lines:
+##    line = line.replace('\n', '').split(" ")
+##    content.append(line)
+##    for number in line:
+##        number = int(number)
+##for line in content:
+##    for x in range(len(line)):
+##        line[x] = int(line[x])
+##
+##
+###ugly to read, but w/e
+##for lineNum in range(1,len(content)):
+##    for numPos in range(len(content[lineNum])):    
+##        #compare content[lineNum -1][numPos] and content[lineNum-1][numPos + 1]
+##
+##       # print content[lineNum][numPos]
+##        if numPos == 0: #for left edge numbers
+##            content[lineNum][numPos] += content[lineNum -1][numPos]
+##
+##        elif numPos == len(content[lineNum]) - 1: # for right edge
+##            content[lineNum][numPos] += content[lineNum-1][numPos - 1]
+##
+##        elif content[lineNum -1][numPos-1] > content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum -1][numPos-1]
+##
+##        elif content[lineNum -1][numPos-1] < content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum-1][numPos]
+##
+##        elif content[lineNum -1][numPos-1] == content[lineNum-1][numPos]:
+##            content[lineNum][numPos] += content[lineNum-1][numPos]
+##
+##
+##    print content[lineNum]
+
+
+###problem 42
+##def getTriangleNumsTo(limit):
+##    triangleList = []
+##    n = 1
+##    triNum = 0
+##    while triNum <= limit:
+##        triNum = n*(n+1)/2
+##        triangleList.append(triNum)
+##        n += 1
+##    return triangleList
+##
+##
+##triangleList = getTriangleNumsTo(364)
+##
+##f = open('words.txt')
+##words = f.read()
+##f.close()
+##
+##words = words.replace('"', '').split(",")
+##letterVal = {"A":0, "B":1, "C":2, "D":3, "E":4, "F":5, "G":6, "H":7, "I":8, "J":9, "K":10, "L":11, "M":12, "N":13, "O":14, "P":15, "Q":16, "R":17, "S":18, "T":19, "U":20, "V":21, "W":22, "X":23, "Y":24, "Z":25}
+##
+##ans = 0
+##
+##for word in words:
+##    letterSum = 0
+##    for letter in word:
+##        letterSum += letterVal[letter] + 1
+##
+##    if letterSum in triangleList:
+##        ans += 1
+##
+##
+##print ans
+##
+##
+####highLen = 0
+####
+####for word in words:
+####    if len(word) > highLen:
+####        highLen = len(word)
+####
+####print highLen * 26 # highest value is 364
+
+
+
+###problem 40
+##startPos = 10
+##
+##ansArray = []
+##rightOnes = [10,100,1000,10000,100000,1000000]
+##
+##number = 9
+##string = ''
+##going = True
+##
+##
+##while going is True:
+##    number +=1 
+##    string += str(number)
+##
+##    for character in str(number):
+##        if startPos in rightOnes:
+##            ansArray.append(int(character))
+##            if startPos == 1000000:
+##                going = False
+##                break
+##        
+##        startPos +=1
+##print ansArray
+
+
+##size = 3
+##
+##
+##x = range(size)
+##y = range(size)
+##
+##grid = {}
+##
+###generates all the nodes
+##for count in range (size):
+##    for count2 in range(size):
+##        grid[str(x[count]) + ',' + str(y[count2])] = 0
+##
+##
+###for each in grid:
+###    coordinates = each.rsplit(',')
+###    print coordinates[each]
+##
+##for y in range(size):
+##    for x in range (size):
+##        pathsTo = 1
+##        if x > 0:
+##            pathsTo += grid[str(x - 1) + ',' + str(y)]
+##        if y > 0:
+##            pathsTo += grid[str(x) + ',' + str(y - 1)]
+##        
+##        grid[str(x) + ',' + str(y)] = pathsTo
+##        print str(x) + ',' + str(y) + ': ' + str(pathsTo)
+##        
+##
+##print grid[str(size - 1) + ',' + str(size - 1)]/size
+
+
+###problem 21
+##numberList = {}
+##
+##for number in range(1,10000):
+##    divSum = 0
+##    for div in range(2, int(math.sqrt(number))+1):
+##        if number%div == 0:
+##            divSum += div
+##            if number/div != div:
+##                divSum += number/div
+##    numberList[number] = divSum + 1
+##
+##
+##
+##ans = 0
+##
+##for number in numberList:
+##    thisSum = numberList[number]
+##    if thisSum < 10000 and thisSum != number:
+##        if number == numberList[thisSum]:
+##            ans += number
+##
+##print ans
 
 ###problem 14
 ###soltuion by memorizing what has already been calculated
