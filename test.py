@@ -1,5 +1,7 @@
 import math
 import time
+import itertools
+#import numpy
 
 def getPrimesTo(x):
     numlist = range(3, x+1, 2)
@@ -15,6 +17,394 @@ def getPrimesTo(x):
 
         backup += 1
     return [2] + [x for x in numlist if x]
+
+def isPandigital(number):
+    strNumber = str(number)
+    for digit in range(1, len(strNumber)+1):
+        if strNumber.count(str(digit)) != 1:
+            return False
+    return True
+
+def getFactors(n):    
+    factors = reduce(list.__add__, ([i, n//i] for i in range(1, int(n**0.5) + 1) if n % i == 0))
+    factors.sort()
+    return set(factors)
+
+
+
+
+###problem 23
+##
+##numList = range(28124)
+##abundNumbers = []
+##
+###gets the abundant numbers
+##for number in range(1,28124):
+##    if sum(getFactors(number)) - number > number:
+##        abundNumbers.append(number)
+##        
+###turns numbers that can be written as the sum of 2 abundant numbers into 0
+##while abundNumbers != []:
+##    for pos in range(0, len(abundNumbers)-1):
+##        if (abundNumbers[0]+abundNumbers[pos]) > 28123:
+##            break
+##            
+##        numList[abundNumbers[0]+abundNumbers[pos]] = 0
+##    abundNumbers.pop(0)    
+##
+##print sum(numList)
+
+
+
+
+###problem 15
+##
+###creates the grid
+##grid = []
+##for x in range(21):
+##    grid.append([])
+##    for y in range(21):
+##        grid[x].append([])
+##
+###calculates the paths to each point as a sum of the # of paths to the prior points
+##for x in range(21):
+##    for y in range(21):
+##        pathsToPoint = 0
+##
+##        if x > 0:
+##            pathsToPoint += grid[x-1][y]
+##        if y > 0:
+##            pathsToPoint += grid[x][y-1]
+##
+##        if y == 0 or x == 0:
+##            pathsToPoint = 1
+##            
+##        grid[x][y] = pathsToPoint
+##
+##print grid[20][20]
+
+
+###problem 24
+##z = range(10)
+##z = itertools.permutations(z, 10)
+##z = list(z)
+##z.sort()
+##print z[1000000 - 1]
+
+
+###problem 39
+####ansList = [0]*1001
+####
+####for p in range (1000):
+####    count = 0
+####    for a in range(p+1):
+####        for b in range(p+1):
+####            if math.sqrt(a**2 + b**2) == (p - (a + b)):
+####                #print a, b, int(math.sqrt(a**2 + b**2))
+####                count +=1
+####    ansList[p] = count
+####
+####highP = 0
+####highVal = 0
+####
+####for p in range(1,1001):
+####    if ansList[p] > highVal:
+####        highP = p
+####        highVal = highVal
+####
+####print highP
+####print highVal
+##
+####ansList = [1, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 8, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 4, 0, 2, 0, 4, 0, 2, 0, 4, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 10, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 8, 0, 2, 0, 2, 0, 4, 0, 6, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 8, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 10, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 2, 0, 4, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 6, 0, 4, 0, 2, 0, 8, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 12, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 6, 0, 4, 0, 4, 0, 2, 0, 4, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 10, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 10, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 4, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 4, 0, 2, 0, 2, 0, 6, 0, 4, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 8, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 10, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 4, 0, 4, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 12, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 10, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 4, 0, 2, 0, 6, 0, 4, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 14, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 4, 0, 2, 0, 2, 0, 10, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 4, 0, 6, 0, 2, 0, 2, 0, 2, 0, 2, 0, 10, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 4, 0, 6, 0, 2, 0, 4, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 6, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 6, 0, 2, 0, 4, 0, 2, 0, 4, 0, 2, 0, 18, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 6, 0, 2, 0, 4, 0, 4, 0, 2, 0, 8, 0, 4, 0, 4, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 10, 0, 2, 0, 2, 0, 2, 0, 2, 0, 6, 0, 6, 0, 2, 0, 2, 0, 6, 0, 6, 0, 2, 0, 12, 0, 2, 0, 4, 0, 4, 0, 2, 0, 2, 0, 8, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 6, 0, 2, 0, 2, 0, 2, 0, 10, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 4, 0, 2, 0, 4, 0, 4, 0, 4, 0, 10, 0, 4, 0, 2, 0, 4, 0, 2, 0, 0]
+####
+####
+####highP = 0
+####highVal = 0
+####
+####for p in range(1,1001):
+####    if ansList[p] > highVal:
+####        highP = p
+####        highVal = ansList[p]
+####
+####print highVal
+####print highP
+
+
+
+
+###problem 29
+##
+##ansList = []
+##for a in range (2,101):
+##    for b in range (2,101):
+##        ansList.append(a**b)
+##        
+##ansList = set(ansList)
+##print len(ansList)
+
+
+
+
+
+###problem 38
+##number = 1
+##while True:
+##    concatStr = ''
+##    n = 1
+##    
+##    while len(concatStr) < 10:
+##        concatStr += str(n * number)
+##
+##        if len(concatStr) == 9:
+##            thing = True
+##            for digit in concatStr:
+##                if concatStr.count(digit) != 1 or digit is '0':
+##                    concatStr ='000000000000000000'
+##                    thing = False
+##                    break
+##            if thing is True:                
+##                print number
+##                print concatStr
+##        n += 1
+##    number += 1
+
+
+
+##
+##lines = open('keylog.txt').read().splitlines()
+##
+##lines = sorted(set(lines))
+##
+###print lines
+##
+##for numIndex, number in enumerate(lines):
+##    for otherIndex, otherNumber in enumerate(lines):
+##        if number is not otherNumber:
+##            #checking to see if the last two numbers on are the first of any other number or vice versa
+##            if number[:2] in otherNumber[-2:]:
+##                lines[numIndex] = otherNumber + number[-1]
+##                lines.pop(otherIndex)
+##            elif number[-2:] in otherNumber[:2]:
+##                lines[numIndex] = number + otherNumber[-1]
+##                lines.pop(otherIndex)
+##
+##
+##print lines
+##
+##for numIndex, number in enumerate(lines):
+##    for otherIndex, otherNumber in enumerate(lines):
+##        if number is not otherNumber:
+##            #checking to see if the last two numbers on are the first of any other number or vice versa
+##            if number[0] in otherNumber[-1]:
+##                lines[numIndex] = otherNumber + number[1:]
+##                lines.pop(otherIndex)
+##            elif number[-1] in otherNumber[0]:
+##                lines[numIndex] = number + otherNumber[1:]
+##                lines.pop(otherIndex)
+##
+##
+##
+##
+##print ''
+##print ''
+##ans = ''
+##for line in lines:
+##    ans +=line
+##
+##print ans
+##print len(ans)
+##
+##test=0
+##for letter in ans:
+##    test+=1
+            
+##z =['1','2','3','4']
+##
+##for ndx,test in enumerate(z):
+##    z[ndx] = test + str(1)
+##       
+##print z
+
+    #print number[1:3]
+   # print number[0:2]
+
+##ways = {}
+##
+##ways[1] = [1]
+##ways[2] = [[1,1],[2]]
+##ways[5] = []
+##
+##for x in range(5/2):
+##    ways[5] += [ways[2]]
+##
+##ways[5] += [ways[5%2]]
+##
+##optionsArray =[]
+##for way in ways[5]:
+##    for item in way:
+##        print item
+##
+
+#print ways[5]
+
+    
+##ans=[]
+##for each in [2,4,2]:
+##    for peach in [3,5,2]:
+##        ans.append(str(each) + str(peach))
+##
+##ans = sorted(set(ans))
+##
+##print ans
+
+
+##ans={}
+##done = []
+##
+##for p in range(1,1000):
+##    ans[p] = 0
+##    for a in range(1,p):
+##        for b in range(1,p):
+##            if [a,b] not in done and [b,a] not in done:
+##                c = math.sqrt(a**2 + b**2)
+##                if c == int(c) and (a + b + c == p):
+##                    done.append([a,b])
+##                    ans[p] += 1
+##                elif c != int(c):
+##                    done.append([a,b])
+##                elif (a + b + c) > p:
+##                    break
+##
+##print ans
+
+
+##
+##
+##primes = getPrimesTo(100000000)
+##primes.sort()
+##print "Primed and ready to go"
+##
+##
+##tot = 1
+##totalCorners = 1.0
+##primesCount = 0.0
+##
+##
+##
+##for x in range (3,100000000, 2):
+####    print x**2
+####    print (x**2 - (x - 1))
+####    print (x**2 - 2*(x-1))
+####    print (x**2 - 3*(x-1))
+####
+##
+##
+##
+##
+##    if (x**2 - 3*(x-1)) in primes:
+##        primesCount += 1
+##    if (x**2 - 2*(x-1)) in primes:
+##        primesCount += 1
+##    if (x**2 - (x - 1)) in primes:
+##        primesCount += 1
+##    if x**2 in primes:
+##        primesCount += 1
+##
+##
+##    for prime in primes:
+##        if prime <= x**2:
+##            primes.remove(prime)
+##        if prime > x**2:
+##            break
+##
+##    print len(primes)
+##    totalCorners += 4.0
+##
+##
+###    print primesCount/totalCorners
+##
+##    if primesCount/totalCorners < .1 and totalCorners > 10:
+##        print 'The answer is: ' + str(x)
+##        break
+##
+##
+##print primesCount
+##print totalCorners
+##
+##
+##   # tot += 4*(x**2) - 6*(x-1)
+
+
+
+
+##number = 16807
+##
+##ans = 0
+##for number in range(1,10000000):
+##    nthRoot = len(str(number))
+##    guess = math.sqrt(number) * number
+##
+##    for z in range(100):
+##        guess = ((nthRoot -1)*guess + number/(guess**(nthRoot - 1)))/nthRoot
+##        if guess == ((nthRoot -1)*guess + number/(guess**(nthRoot - 1)))/nthRoot:
+##            break
+##
+##    if int(guess) == guess:
+##        #print guess
+##        ans += 1
+##
+##print ans
+
+
+##ans = 0
+##
+##for x in range(2,10):
+##    n = 0
+##    going = True
+##    while going:
+##        n+=1
+##        if len(str(x**n)) == n:
+##            ans += 1
+##            print x**n
+##        elif len(str(x**n)) > n:
+##            going = False
+##
+##print ans
+
+
+##for n in range(1000000):
+###    print len(str(2**n))
+##    if len(str(2**n)) == n:
+##        print n
+##
+##
+
+
+
+
+###problem 46
+##primes = getPrimesTo(100000)
+##print 'Primes acquired'
+##
+##squaresDoubled = []
+##
+##for x in range(1,1000):
+##    squaresDoubled.append( 2 * x * x)
+##
+##
+##for number in range(4,100000):
+##    if number not in primes and number%2 != 0:
+##        possible = True
+##        for subt in squaresDoubled:
+##            if number - subt in primes:
+##              #  print number
+##                possible = False
+##                break
+##
+##        if possible:    
+##            print str(number) + " IS THE ANSWER"
+##            break
+
 
 
 ###problem 52
@@ -635,7 +1025,7 @@ def getPrimesTo(x):
 ##
 ##
 ##
-###problem 30
+###problem 28
 ###I just took a look at how each diagonal differs each row and came up with the following pattern:
 ##
 ##tot = 1
