@@ -31,6 +31,936 @@ def getFactors(n):
     return set(factors)
 
 
+def convertToBinary(number):
+    binaryStr = ''
+    n = 0
+    while 2**n <= number:
+        n += 1
+    while n > 0 :
+        n -=1
+        if 2**n <= number:
+            number -= 2**(n)
+            binaryStr += '1'
+        else:
+            binaryStr += '0'
+    return binaryStr        
+
+
+def isPrime(number):
+    if number < 2:
+        return False
+    if number == 2:
+        return True
+    elif number % 2 == 0:
+        return False
+
+    for x in range(3, int(number**0.5)+1, 2):
+        if number % x == 0:
+            return False
+    return True
+
+
+def getPentsTo(number):
+    pents = [1]
+    n = 2
+    while pents[-1] < number:
+        pents.append(n*(3*n - 1)/2)
+        n += 1
+    return pents
+
+def getPrimeFactors(number):
+    primeFactors = []
+    factors = getFactors(number)
+
+    for factor in factors:
+        if isPrime(factor):
+            primeFactors.append(factor)            
+    return primeFactors
+
+
+def getDigSum(number):
+    digSum = 0
+    for digit in str(number):
+        digSum += int(digit)
+
+    return digSum
+
+def flattenArray(arr):
+    newArray = []
+    for value in arr:
+        if type(value) != type([]):
+            newArray.append(value)
+        else:
+            newArray += flattenArray(value)
+    return newArray
+
+
+
+
+#problem 58
+
+
+position = 1
+sideLength = 2 
+
+totalDiags = 1.0
+totalPrime = 0.0
+
+while True:
+    for x in range(4):
+        position += sideLength
+        if isPrime(position):
+            totalPrime += 1
+
+    sideLength +=2 
+    totalDiags += 4
+
+    if (totalPrime/totalDiags) < 0.1:
+        break
+
+
+print (totalPrime/totalDiags)    
+print sideLength - 1 # -1 because we need to include 1 as the first row, so +1; but we've already iterated ahead by 2, so -2 + 1
+
+
+##
+##
+##target = 5
+##coins = [1,2,5]
+##ways = [1]+[0]*target
+##
+##for coin in coins:
+##  for i in range(coin, target+1):
+##    print ways
+##    ways[i] += ways[i-coin]
+##
+##print ways
+
+
+
+##
+###calls itself recursively until nothing but 1's exist
+###in each iteration, adds the result to the answers 
+##def breakDownCoins (coins, ansList):
+##    startingCoins = coins
+##
+##    coins = flattenArray(coins)
+##    coins.sort()
+##
+##    if (sum(coins) - len(coins)) == 0:
+##        return coins
+##
+##    else:
+###        ansList = []
+##
+##        for ind, coin in enumerate(coins):
+##
+##            for value in coinList[coin]:
+##                newList = []        
+##                if ind != 0:
+##                    newList += flattenArray(coins[:ind])
+##
+##                newList.append(value)
+##                
+##                if ind != len(coins)-1:
+##                    newList += coins[ind + 1:]
+##
+##                newList = flattenArray(newList)
+##                newList.sort()
+##
+##                if newList not in ansList:
+##                    ansList.append(newList)
+##
+##                if (sum(newList) - len(newList)) > 0 and newList != coins:
+##                    lowerIteration = breakDownCoins(newList, ansList)
+##                    if lowerIteration not in ansList:
+##                        ansList.append(lowerIteration)
+##                    
+##        # this for loop is to get rid of weird instances where '[...]' was being added as the last value
+##        for each in ansList: 
+##            if type(each[0]) == type([]):
+##                ansList.remove(each)
+##
+##        
+##        return ansList
+##
+##
+##coinList = {1:[1], 2:[], 5:[], 10:[], 20:[], 50:[], 100:[], 200:[]}
+##
+##coinsToCalc = [1,2,5,10]
+##
+##for ind, coin in enumerate(coinsToCalc):
+##
+##    possibilities = []
+##    if coin != 1:
+##        possibilities.append([coin])
+##
+##        poolLeft = coin
+##
+##        topCombo = []
+##
+##
+##        subInd = ind - 1    
+##        while poolLeft > 0:
+##            if poolLeft - coinsToCalc[subInd] >= 0:
+##                poolLeft -= coinsToCalc[subInd]
+##                topCombo.append(coinsToCalc[subInd])
+##            else:
+##                subInd -=1
+##
+##        possibilities.append(topCombo)        
+##        
+##
+##        #need to figure out how to break them down
+##
+##        for bCoinInd, breakableCoin in enumerate(topCombo):
+##            if breakableCoin > 1:
+##                for subBreak in coinList[breakableCoin]:
+##                    for combo in breakDownCoins([breakableCoin], []):
+##                        newCombo = []
+##                        
+##                        if bCoinInd == 0:
+##                            newCombo = combo + topCombo[1:]
+##                        elif bCoinInd == len(topCombo) - 1:
+##                            newCombo = topCombo[:len(topCombo) - 1] + combo
+##                        else:
+##                            newCombo = topCombo[:bCoinInd] + combo + topCombo[bCoinInd + 1:]
+##        
+##                        possibilities.append(newCombo)
+##
+##        #possibilites = sorted(set(possibilities))
+##                        
+##        coinList[coin] = possibilities
+##
+### for each value thats not one in the topcombo
+### break that value down into all possibilites and add that result to the top
+### then reduce all duplicates from the top top coin
+##    
+##
+##print coinList
+###possibilities = [2]
+##
+##
+##
+###coinList = {1:[1], 2:[[1,1], [2]], 5:[], 10:[], 20:[], 50:[], 100:[], 200:[]}
+##
+##
+##
+###print breakDownCoins([2,2,1], [])
+##
+##print 'done'
+###print [1, 1] + [2]
+##
+##
+##
+
+
+
+
+##word = ['d','o','g']
+##
+##newWord = []
+##
+##newWord.append(word[:2])
+##
+##print newWord
+##print type(newWord)
+
+###problem 89
+##
+##romanDict = {'M':1000, 'D':500, 'C':100, 'L':50, 'X':10, 'V':5, 'I':1}
+##romanDictInv = {1000:'M', 500:'D', 100:'C', 50:'L', 10:'X', 5:'V', 1:'I'}
+##
+##def convertRomanNum(romNum):
+##
+##    value = 0
+##
+##    while romNum != '':
+##
+##        highPos = 0
+##
+##        for ind, numeral in enumerate(romNum):
+##            if romanDict[numeral] > romanDict[romNum[highPos]]:
+##                highPos = ind
+##
+##        if highPos == 0:
+##            value += romanDict[romNum[highPos]]
+##
+##        if highPos != 0:
+##            subValue = convertRomanNum(romNum[:highPos])
+##            value += (romanDict[romNum[highPos]] - subValue)
+##
+##        romNum = romNum[highPos + 1:]
+##
+##    return value
+##
+##
+##romArr = []
+##for each in romanDict:
+##    romArr.append(romanDict[each])
+##romArr.sort()
+###romArr = romArr[::-1]
+##    
+##def unsimplifiedRoman(number):
+##
+##    #look for the biggest value and remove that as many times as possible
+##    #and subract that from the total
+##
+##    #look at the next level of value  (100, 50) and see if it is on the right side or left side
+##
+##    romString = ''
+##
+##    for ind, romNum in enumerate(romArr):
+##        while number >= romNum:
+##
+##            number -= romNum
+##            romString += romanDictInv[romNum]
+##
+##
+##
+##    return romString
+##    
+##
+##
+##
+###after trying a bunch of other stuff and not reading the exact rules closely enough, I just decided to do it this way
+##
+##def convertNumToRoman(number):
+##
+##    singlesNum = number%10
+##    singlesStr = ''
+##
+##    if singlesNum == 4:
+##        singlesStr = 'IV'
+##
+##    elif singlesNum == 9:
+##        singlesStr = 'IX'
+##
+##    elif singlesNum != 0:
+##        if singlesNum >= 5:
+##            singlesStr = 'V'
+##            singlesNum -= 5
+##        while singlesNum > 0:
+##            singlesStr += 'I'
+##            singlesNum -= 1
+##    number -= number%10
+##
+##
+##    tensNum = number%100
+##    tensStr = ''
+##
+##    if tensNum == 40:
+##        tensStr = 'XL'
+##
+##    elif tensNum == 90:
+##        tensStr = 'XC'
+##
+##    elif tensNum != 0:
+##        if tensNum >= 50:
+##            tensStr = 'L'
+##            tensNum -= 50
+##        while tensNum > 0:
+##            tensStr += 'X'
+##            tensNum -= 10
+##    number -= number%100
+##
+##
+##    hundredsNum = number%1000
+##    hundredsStr = ''
+##
+##    if hundredsNum == 400:
+##        hundredsStr = 'CD'
+##
+##    elif hundredsNum == 900:
+##        hundredsStr = 'CM'
+##
+##    elif hundredsNum != 0:
+##        if hundredsNum >= 500:
+##            hundredsStr = 'D'
+##            hundredsNum -= 500
+##        while hundredsNum > 0:
+##            hundredsStr += 'C'
+##            hundredsNum -= 100
+##    number -= number%1000
+##
+##
+##    thousandsStr = ''
+##
+##    while number > 0:
+##        thousandsStr += 'M'
+##        number -= 1000
+##
+##
+##
+##    return thousandsStr + hundredsStr + tensStr + singlesStr
+##
+##
+##lines = open('roman.txt').read().splitlines()
+##
+##ans = ''
+##origCount = 0
+##
+##
+##for line in lines:
+##    origCount += len(line)
+##    ans += convertNumToRoman(convertRomanNum(line))
+##
+##    
+##print origCount - len(ans)
+##
+
+
+    
+
+##    print number
+##    #look for the biggest value and remove that as many times as possible
+##    #and subract that from the total
+##
+##    #look at the next level of value  (100, 50) and see if it is on the right side or left side
+##
+##
+##    for ind, romNum in enumerate(romArr):
+##        if number == romNum:
+##            return romanDictInv[romNum]
+##
+##        if romNum < number:
+##            if ind != 0: #deals with the highest letter
+##                if (number - romNum) <= (romArr[ind - 1] - number): #if it's closer or equal to right side action
+##                    return romanDictInv[romNum] + convertNumToRoman(number - romNum)
+##                else:
+##                    appendingNumerals = convertNumToRoman(romArr[ind - 1] - number) + romanDictInv[romArr[ind - 1]]
+##                    #needs to go through this as an array, and if any rules are broken, it needs to return the unsimplifiedRoman version of that number
+##
+##                    leadingAllowed = ["I", "X", "C"]
+##        
+##                    if appendingNumerals[0] not in leadingAllowed: 
+##                        return unsimplifiedRoman(number)
+##
+##                    #needs to pick out how much of the number needs to be simplified
+##                    for subInd, subNum in enumerate(appendingNumerals):
+##                        if subNum == "I" and appendingNumerals[subInd + 1] not in ["V","X"]:
+##                            return unsimplifiedRoman(number)
+##                        if subNum == "X" and appendingNumerals[subInd + 1] not in ["L","C"]:
+##                            return unsimplifiedRoman(number)
+##                        if subNum == "C" and appendingNumerals[subInd + 1] not in ["D","M"]:
+##                            return unsimplifiedRoman(number)
+##                    
+##                    
+##                    return appendingNumerals
+##            else:
+##                return romanDictInv[romNum] + convertNumToRoman(number - romNum)
+##
+
+####    romString = ''
+####
+####    if number%10 == 10-1:
+####        romString += 'I' + 'X'
+####        number -= number%10
+####
+####    elif number%5 == 5-1:
+####        romString += 'I' + 'V'
+####        number -= number%5
+####
+####    else:
+####        while number%5 > 0:
+####            number -= 1
+####            romString = 'I' + romString
+####
+####
+####    return romString
+##
+##    romString = ''
+##
+##    for ind in range(len(romArr) - 2):
+##
+##      #  print romString
+##
+##        if number in romArr:
+##            romString = romanDictInv[number] + romString
+##            number -= number
+##
+##        elif number%romArr[ind+2] == romArr[ind + 2]-romArr[ind]:
+##            romString += romanDictInv[romArr[ind]] + romanDictInv[romArr[ind + 2]]
+##            number -= number%romArr[ind+2]
+##
+##        elif number%romArr[ind+1] == romArr[ind + 1]-romArr[ind]:            
+##            romString += romanDictInv[romArr[ind]] + romanDictInv[romArr[ind + 1]]
+##            number -= number%romArr[ind+1]
+##
+##        else:
+##            while number%romArr[ind+1] > 0:
+##                number -= romArr[ind]
+##                romString = romString + romanDictInv[romArr[ind]] 
+##
+##
+####    #for 500
+####    if number in romArr:
+####        romString = romanDictInv[number] + romString
+####        number -= number
+####
+####    elif number%1000 == 1000-500:
+####        romString += 'D' + 'M'
+####        number -= number%1000
+####
+####    else:
+####        while number%1000 > 0:
+####            number -= 500
+####            romString = romString + romanDictInv[romArr[500]] 
+##
+##
+##        for value in [1000, 500]:
+##
+##            while number >= value and value != 0:
+##                number -= value
+##                romString = romString + romanDictInv[value] 
+##
+
+
+
+
+
+
+
+##def returnIntArray(test):
+##
+##    test = lines[0].split(',')
+##
+##    for pos in range(len(test)):
+##        test[pos].replace('\n', '')
+##        test[pos] = int(test[pos])
+##
+##    return test
+##f = open('matrix.txt')
+##lines = f.readlines()
+##f.close()
+##
+##grid = []
+##
+##for line in lines:
+##    grid.append(returnIntArray(line))
+##
+##
+##
+###setup the bordering edges
+##for xPos in range(1,len(grid[0])):
+##    grid[0][xPos] += grid[0][xPos-1]
+##
+##for yPos in range(1,len(grid)):
+##    grid[yPos][0] += grid[yPos-1][0]
+##
+##
+##going = True
+##
+##pos = 1
+##
+##while going:
+##    for xPos in range(pos, len(grid[0])):
+##        
+##
+
+
+
+
+###problem 63 
+##ans = 0
+##n = 1
+##while True:
+##    x = 1
+##    while len(str(x**n)) <= n:
+##        if len(str(x**n)) == n:
+##            print str(x**n)
+##            ans += 1
+##        x += 1
+##    n += 1
+##    if len(str(x**n)) > 50:
+##        break
+##print ans
+
+
+
+###problem 56
+##
+##maxSum = 0
+##maxNum = 0
+##
+##for a in range(1, 100):
+##    for b in range(1,100):
+##        
+##        if getDigSum(a**b) > maxSum:
+##            maxSum = getDigSum(a**b)
+##            maxNum = str(a) + ', ' + str(b)
+##print maxNum
+##
+##print getDigSum(99**95)
+
+
+
+##primes = getPrimesTo(1000000)
+##limit = 1000000
+##
+##start = 0
+##end = len(primes)
+##
+##longest = 0
+##ans = 0
+##
+##
+##while start < len(primes):
+##
+##    while (end - start) > longest:
+##        if isPrime(sum(primes[start : end])):
+##            if sum(primes[start : end]) < limit:
+##                ans = sum(primes[start : end])
+##
+##                longest = end - start
+##                
+##        end -=1 
+##        while sum(primes[start : (end/2)]) > limit:
+##            end = end/2
+##
+##    start +=1
+##    end = len(primes)
+##
+##print ans
+##print longest
+
+
+###problem 49
+##
+###this one got a lot more messy than it needed to be. tons of unnecessary code in there
+##primes = getPrimesTo(9999)
+##
+##
+##ans = []
+##
+##for prime in primes:
+##    if prime > 1000:
+##
+##
+##        digs = []
+##        for digit in str(prime):
+##            digs.append(digit)
+##        z = list(itertools.permutations(digs, 4))
+##
+##        permList = []
+##        for variation in z:
+##            if True:
+##                digStr = ''
+##                for digit in variation:
+##                    digStr += digit
+##                
+##                if int(digStr) > 1000 and int(digStr) in primes:
+##                    permList.append(int(digStr))
+##            
+##
+##        count = 0
+##
+##        for perm in permList:
+##            if perm in primes:
+##                count +=1
+##
+##        if count > 2:
+##            for perm in permList:
+##                differences = []
+##                for secondPerm in permList:
+##                    differences.append(secondPerm - perm)
+##
+##
+##                for difference in differences:
+##                    if difference != 0 and (perm + 2*difference) in permList and (perm + difference) in permList:
+##                        if perm != 1487 and perm != 4817 and perm != 8147 and perm not in ans:
+##                            ans.append(perm)
+##                            ans.append(perm + difference)
+##                            ans.append(perm + difference)
+##                            print difference
+##                            
+##ans = sorted(set(ans))
+##
+##print ans
+
+
+
+
+
+###problem 41
+##
+##z = list(itertools.permutations([1,2,3,4,5,6,7], 7))
+##print len(z)
+##
+##
+##pandList = []
+##for number in z:
+##    numberStr = ''
+##    for digit in number:
+##        numberStr += str(digit)
+##    pandList.append(int(numberStr))
+##
+##pandList.sort()
+##pandList = pandList[::-1]
+##
+##for pand in pandList:
+##    if isPrime(pand):
+##        print pand
+##        break
+##
+##print 'Done'
+
+
+### problem 47
+##
+##going = True
+##number = 15
+##
+##while going:
+##    number +=1
+##    if len(getPrimeFactors(number)) > 3:
+##        if len(getPrimeFactors(number+1)) > 3:
+##            if len(getPrimeFactors(number+2)) > 3:
+##                if len(getPrimeFactors(number+3)) > 3:
+##                    print number
+##                    going = False
+##                    
+
+
+##def getFourCon(number, streak):
+##    number += 1
+##
+##    if len(getPrimeFactors(number)) > 3:
+##        streak += 1
+##    else:
+##        streak = 0
+##
+##    if streak == 4:
+##        print number
+##        return number
+##    else:
+##        getFourCon(number, streak)
+##
+##
+##print getFourCon(15,0)
+
+
+
+
+
+###problem 43
+##
+##ansList = []
+##z = list(itertools.permutations([1,2,3,4,5,6,7,8,9,0], 10))
+##
+###felt like writing it out this way this time. nice diagonal look
+##for num in z:
+##    if num[0] != 0:
+##        if int(str(num[1]) + str(num[2]) + str(num[3])) % 2 == 0:
+##            if int(str(num[2]) + str(num[3]) + str(num[4])) % 3 == 0:
+##                if int(str(num[3]) + str(num[4]) + str(num[5])) % 5 == 0:
+##                    if int(str(num[4]) + str(num[5]) + str(num[6])) % 7 == 0:
+##                        if int(str(num[5]) + str(num[6]) + str(num[7])) % 11 == 0:
+##                            if int(str(num[6]) + str(num[7]) + str(num[8])) % 13 == 0:
+##                                if int(str(num[7]) + str(num[8]) + str(num[9])) % 17 == 0:
+##                                    ansList.append(num)
+##
+##ans = 0
+##
+##for num in ansList:
+##    numStr = ''
+##    for dig in num:
+##        numStr += str(dig)
+##    ans += int(numStr)
+##
+##print ans
+
+
+
+#problem 44, not the most efficient
+
+##pents = getPentsTo(10000000)
+##
+##for thisInd,pent in enumerate(pents):
+##    ind = 0
+##
+##    while ind < thisInd:
+##        if (pent - pents[ind]) in pents and (pent + pents[ind]) in pents:
+##            print pent, pents[ind]
+##
+##        ind += 1
+##
+##
+##print 'done'
+##
+
+
+
+
+##
+##pents = [1]
+##n = 1
+##
+##ans = [100,0,0]
+##
+##
+##going = True
+##while going:
+##    n += 1
+##    newPent = n*(3*n - 1)/2
+##
+##    for pent in pents:
+##        if (newPent - pent) in pents:
+##            
+##            tempNum = n*(3*n - 1)/2
+##            m = n
+##
+##            while tempNum < (newPent + pent):
+##                m += 1
+##                tempNum = m*(3*m - 1)/2
+##
+##            
+##            if tempNum == (newPent + pent) and (newPent - pent) < ans[0]:
+##                ans = [(newPent - pent), newPent, pent]
+##                print newPent, pent
+##            
+##
+##
+##    pents.append(newPent)
+##
+
+
+
+
+    
+###problem 33
+##for top in range (10,100):
+##    bot = top + 1
+##    
+##    while bot < 100:
+##        for dig in str(top):
+##            if dig in str(bot):
+##                botDig = str(bot).replace(dig, '', 1)
+##                topDig = str(top).replace(dig, '', 1)
+##
+##              #  print top, '/', bot
+##             #   print botDig, '/', topDig
+##                
+##                if topDig != '0' and botDig != '0' and (bot%10 != 0 and top%10 != 0):    
+##                    if float(topDig)/float(botDig) == float(top)/float(bot):
+##                        print topDig + '/' + botDig + ' =', top,'/', bot
+##
+##
+##
+##        bot +=1
+##
+##print 'done'
+##x = 16*19*26*49
+##y = 64*95*65*98
+##print float(x)/y
+
+
+##z = list(itertools.permutations([1,2,3,4,5,6,7,8,9,0], 10))
+##
+##
+##
+##varList = []
+##
+##for var in z:
+##    varList.append(int(''.join(str(dig) for dig in var)))
+##
+##varList.sort()   
+##varList = varList[::-1]
+##
+##for pand in varList:
+##    if isPrime(pand) is True:
+##        print pand
+##        break
+##
+
+
+##primes = getPrimesTo(1000000)
+##
+##highVal = 0
+##highAns = 0
+##
+##for ind, prime in enumerate(primes):
+##    x = -1
+##
+##    while True:
+##        arrSum = sum(primes[ind:x])
+##        if arrSum in primes:
+##            if len(primes[ind:x]) > highVal:
+##                highVal = len(primes[ind:x])
+##                highAns = arrSum
+##            break
+##        elif arrSum == 0:
+##            break
+##        x -=1
+##
+##
+##print highVal
+##print highAns
+
+
+
+
+###problem 36
+##
+##ans = 0
+##for x in range (1000000):
+##    if str(x) == str(x)[::-1] and convertToBinary(x) == convertToBinary(x)[::-1]:
+##        ans += x
+##print ans
+##
+
+
+###problem 27 ... not so pretty
+##
+##primes = getPrimesTo(100000)
+##possibleBs = getPrimesTo(1000) #B has to be prime if the number is prime when n = 0
+##
+##
+##highCount = 1
+##highA = 0
+##highB = 0
+##
+##for b in possibleBs:
+##    for a in range(1,1000):
+##
+##        count = 1
+##        n = 1
+##        while True:
+##
+##            if highCount**2 + a*highCount + b not in primes:
+##                break
+##
+##            if b == 41:
+##                print (n**2 + a*n + b)
+##            
+##            if (n**2 + a*n + b) in primes:
+##                count +=1
+##                if count > highCount:
+##                    highCount = count
+##                    highA = a
+##                    highB = b
+##                n += 1        
+##            else:
+##                break
+##        while True:
+##            if highCount**2 + a*highCount + b not in primes:
+##                break
+##            if b == 41:
+##                print (n**2 + a*n + b)            
+##            if (n**2 - a*n + b) in primes:
+##                count +=1
+##                if count > highCount:
+##                    highCount = count
+##                    highA = a
+##                    highB = b
+##                n += 1        
+##            else:
+##                break
+##            
+##print highA
+##print highB
+##print highCount
+
 
 
 ###problem 23
